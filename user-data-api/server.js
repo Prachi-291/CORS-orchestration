@@ -106,13 +106,13 @@ const dynamicCorsMiddleware = async (req, res, next) => {
             // Handle Wildcard Methods
             const methods = (matchedPolicy.allowedMethods && matchedPolicy.allowedMethods.length > 0)
                 ? (matchedPolicy.allowedMethods.includes('*') ? 'GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD' : matchedPolicy.allowedMethods.join(', '))
-                : 'GET, POST, PUT, DELETE, OPTIONS';
+                : (matchedPolicy.allowedMethods ? '' : 'GET, POST, OPTIONS');
             res.header('Access-Control-Allow-Methods', methods);
 
             // Handle Headers
             const headers = (matchedPolicy.allowedHeaders && matchedPolicy.allowedHeaders.length > 0)
                 ? matchedPolicy.allowedHeaders.join(', ')
-                : 'Content-Type, Authorization, x-api-key';
+                : (matchedPolicy.allowedHeaders ? '' : 'Content-Type, Authorization');
             res.header('Access-Control-Allow-Headers', headers);
 
             if (matchedPolicy.allowCredentials) res.header('Access-Control-Allow-Credentials', 'true');
