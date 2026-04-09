@@ -88,6 +88,7 @@ const connectDB = async () => {
                 }
             }
         });
+        logChangeStream.on('error', (err) => console.error('📡 Log Stream Error:', err.message));
 
         const notificationChangeStream = mongoose.connection.collection('notifications').watch();
         notificationChangeStream.on('change', (change) => {
@@ -98,6 +99,7 @@ const connectDB = async () => {
                 }
             }
         });
+        notificationChangeStream.on('error', (err) => console.error('📡 Notif Stream Error:', err.message));
 
         console.log('📡 Real-time Database Watchers operational.');
 
