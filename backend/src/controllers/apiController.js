@@ -1,6 +1,7 @@
 const Api = require('../models/Api');
 const Notification = require('../models/Notification');
 
+// Fetch all APIs for logged-in user's organization
 exports.getApis = async (req, res) => {
     try {
         const apis = await Api.find({ organization: req.user.organization }).sort({ createdAt: -1 });
@@ -10,6 +11,7 @@ exports.getApis = async (req, res) => {
     }
 };
 
+// Create a new API instance
 exports.createApi = async (req, res) => {
     const { name, url, key } = req.body;
 
@@ -45,6 +47,7 @@ exports.createApi = async (req, res) => {
     }
 };
 
+// Update API details by ID
 exports.updateApi = async (req, res) => {
     try {
         const updatedApi = await Api.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -55,6 +58,7 @@ exports.updateApi = async (req, res) => {
     }
 };
 
+// Delete API by ID
 exports.deleteApi = async (req, res) => {
     try {
         await Api.findByIdAndDelete(req.params.id);
