@@ -4,6 +4,8 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
+// Main backend server entry point for CORSGuard Engine
+// Handles Express app, Socket.io, MongoDB, and API routing
 
 const app = express();
 const server = http.createServer(app);
